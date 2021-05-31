@@ -11,10 +11,7 @@ namespace Battleship
             Console.WriteLine("Do you want a tutorial? (y or n)");
             showTutorial(Console.ReadLine());*/
             //Game();
-            var battleShip = new int[5, 2]{
-                { 5, 5 }, { 5,6}, { 5,7}, { 5,8}, { 5,9}
-            };
-            Console.WriteLine(battleShip[1, 1]);
+            GenerateGrid();
         }
         static void Intro()
         {
@@ -62,6 +59,7 @@ namespace Battleship
             int inputX = 0;
             int inputY = 0;
 
+
             Console.WriteLine("Shots Remaining = {0} | Hits = {1} | Misses = {2}", Remaining, Hits, Misses);
 
             GenerateGrid();
@@ -75,11 +73,86 @@ namespace Battleship
         }
         static void GenerateGrid()
         {
-            for (int i = 0; i < 10; i++)
+            for (int i = 10; i > 0; i--)
             {
-                Console.WriteLine("{0} - - - - - - - - - -", i);
+                if(i == 10)
+                {
+                    Console.WriteLine("{0}  - - - - - - - - - -", i);
+                }
+                else
+                {
+                    Console.WriteLine("{0}   - - - - - - - - - -", i);
+                }
+
             }
-            Console.WriteLine("0 1 2 3 4 5 6 7 8 9 10");
+            Console.WriteLine(" ");
+            Console.WriteLine("0   1 2 3 4 5 6 7 8 9 10");
+        }
+        static void CreateEnemyShip()
+        {
+            int[,] enemyShip = new int[5, 2];
+            int firstX = GiveMeANumber();
+            int firstY = GiveMeANumber();
+            bool moveX = trueOrFalse();
+
+            if(moveX == true)
+            {
+                if(firstX > 5)
+                {
+                    for(int i = 0; i < 5; i++)
+                    {
+                        enemyShip[i, 0] = firstX - i;
+                        enemyShip[i, 1] = firstY;
+                    }
+                }
+                if(firstX < 5)
+                {
+                    for (int i = 0; i < 5; i++)
+                    {
+                        enemyShip[i, 0] = firstX + i;
+                        enemyShip[i, 1] = firstY;
+                    }
+                }
+            }
+            else
+            {
+                if (firstY > 5)
+                {
+                    for (int i = 0; i < 5; i++)
+                    {
+                        enemyShip[i, 0] = firstX;
+                        enemyShip[i, 1] = firstY - i;
+                    }
+                }
+                if (firstY < 5)
+                {
+                    for (int i = 0; i < 5; i++)
+                    {
+                        enemyShip[i, 0] = firstX;
+                        enemyShip[i, 1] = firstY+i;
+                    }
+                }
+            }
+        }
+        static int GiveMeANumber()
+        {
+            int[] validNumbers = new int[] { 1, 2, 3, 4, 6, 7, 8, 9, 10 };
+            Random rnd = new Random();
+            return validNumbers[rnd.Next(1, validNumbers.Length + 1)];
+
+        }
+        private static bool trueOrFalse()
+        {
+            Random rnd = new Random();
+            if(rnd.Next(1,3) == 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
+
 }
