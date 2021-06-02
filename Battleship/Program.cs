@@ -9,9 +9,9 @@ namespace Battleship
             /*Intro();
             Console.Clear();
             Console.WriteLine("Do you want a tutorial? (y or n)");
-            showTutorial(Console.ReadLine());*/
-            //Game();
-            GenerateGrid();
+            showTutorial(Console.ReadLine());
+            Console.Clear();*/
+            Game();
         }
         static void Intro()
         {
@@ -48,28 +48,80 @@ namespace Battleship
                 {
                     Console.Write("*");
                 }
-
+                Console.WriteLine(" ");
+                Console.WriteLine("Press any key and lets fire up the boilers and ship off!");
+                Console.ReadLine();
             }
         }
         static void Game()
         {
-            int Remaining = 8;
-            int Hits = 0;
-            int Misses = 0;
-            int inputX = 0;
-            int inputY = 0;
+            int remaining = 8;
+            int hits = 0;
+            int misses = 0;
+            int inputX;
+            int inputY;
+            int[,] attemptedCoordinates = new int[8, 2];
+            int[,] failedCoordinates = new int[8, 2];
+            int[,] successfulCoordinates = new int[5, 2];
+            int [,] targetShip = CreateEnemyShip();
 
+            while (remaining != 0 || hits < 5)
+            {
+                Console.WriteLine("Shots Remaining = {0} | Hits = {1} | Misses = {2}", remaining, hits, misses);
+                Console.WriteLine("");
 
-            Console.WriteLine("Shots Remaining = {0} | Hits = {1} | Misses = {2}", Remaining, Hits, Misses);
+                GenerateGrid();
+                Console.WriteLine("");
 
-            GenerateGrid();
-            Console.WriteLine("");
+                Console.Write("(X-Axis) - Select a spot [1-10] to fire upon : ");
 
-            Console.Write("(X-Axis) - Select a spot [1-10] to fire upon : ");
-            inputX = int.Parse(Console.ReadLine());
-            Console.WriteLine("");
-            Console.Write("(Y-Axis) - Select a spot [1-10] to fire upon : ");
-            inputY = int.Parse(Console.ReadLine());
+                if(int.TryParse(Console.ReadLine(), out inputX)){
+                    if( inputX < 11 && inputX > 0)
+                    {
+                        Console.WriteLine("");
+                    }
+                    else
+                    {
+                        InvalidInputMessage();
+                    }
+                }
+
+                Console.Write("(Y-Axis) - Select a spot [1-10] to fire upon : ");
+                if (int.TryParse(Console.ReadLine(), out inputY))
+                {
+                    if (inputY < 11 && inputY > 0)
+                    {
+                        Console.WriteLine(inputY);
+                    }
+                    else
+                    {
+                        Console.Clear();
+                        Console.WriteLine("that's not a valid entry!");
+                    }
+
+                }
+                //check [inputX, inputY] are valid numbers
+                //if [inputX, inputY] previously tried
+                //go back to selecting values
+                //if [x,y] match piece of ship
+                //hits++
+                //remaining--
+                //push [x,y] to "already tried" variable
+                //reset inputX and inputY to 0
+                //prepare rerender of grid to mark hit
+                // clear console.
+                //rerender console.
+                //if [x,y] does not match piece of ship
+                //misses++
+                //remaining--
+                //push [x,y] to "already tried variable"
+                //reset inputX and inputY to 0
+                //prepare rerender of grid to mark miss
+                //clear console
+                //rerender console
+                remaining--;
+            }
+
         }
         static void GenerateGrid()
         {
@@ -88,12 +140,29 @@ namespace Battleship
             Console.WriteLine(" ");
             Console.WriteLine("0   1 2 3 4 5 6 7 8 9 10");
         }
-        static void CreateEnemyShip()
+        static void InvalidInputMessage()
+        {
+            Console.Clear();
+            Console.WriteLine("Incorrect Input ensign! Numbers from 1 - 10!!!! Press Enter to resume");
+            Console.ReadLine();
+
+        }
+        static void recursiveReturn(int remaining, int hits, int misses, int inputX, int inputY)
+        {
+            Console.WriteLine("Shots Remaining = {0} | Hits = {1} | Misses = {2}", remaining, hits, misses);
+                Console.WriteLine("");
+
+                GenerateGrid();
+                Console.WriteLine("");
+
+                Console.Write("(X-Axis) - Select a spot [1-10] to fire upon : ");
+        }
+        static int[,] CreateEnemyShip()
         {
             int[,] enemyShip = new int[5, 2];
             int firstX = GiveMeANumber();
             int firstY = GiveMeANumber();
-            bool moveX = trueOrFalse();
+            bool moveX = randomTrueOrFalse();
 
             if(moveX == true)
             {
@@ -133,6 +202,7 @@ namespace Battleship
                     }
                 }
             }
+            return enemyShip;
         }
         static int GiveMeANumber()
         {
@@ -141,7 +211,7 @@ namespace Battleship
             return validNumbers[rnd.Next(1, validNumbers.Length + 1)];
 
         }
-        private static bool trueOrFalse()
+        private static bool randomTrueOrFalse()
         {
             Random rnd = new Random();
             if(rnd.Next(1,3) == 1)
@@ -153,6 +223,16 @@ namespace Battleship
                 return false;
             }
         }
+
+
+       /* private static bool alreadyTried(int x, int y, int shotsLeft, int[,] array)
+        {
+
+        }*/
     }
 
 }
+/*foreach (int i in attemptedCoordinates)
+{
+    System.Console.Write("{0} ", i);
+}*/
