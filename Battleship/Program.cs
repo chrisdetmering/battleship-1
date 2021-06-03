@@ -6,16 +6,13 @@ namespace Battleship
     {
         static void Main(string[] args)
         {
-            /*Intro();
-            Console.Clear();
-            Console.WriteLine("Do you want a tutorial? (y or n)");
-            showTutorial(Console.ReadLine());
-            Console.Clear();*/
+            //Intro();
             Game();
         }
         static void Intro()
         {
             string wantToPlay = "";
+            string wantTutorial = "";
 
             while (wantToPlay != "y")
             {
@@ -26,10 +23,17 @@ namespace Battleship
                     Console.WriteLine("Then why are you here?");
                 }
             }
-        }
-        static void showTutorial(string answer){
-            if (answer == "y")
+
+            Console.Clear();
+            Console.WriteLine("Do you want a tutorial? (y or n)");
+            wantTutorial = Console.ReadLine();
+            if(wantTutorial == "y")
             {
+                ShowTutorial();                
+            }
+            Console.Clear();
+        }
+        static void ShowTutorial(){
                 Console.Clear();
                 for (int i = 0; i < 50; i++)
                 {
@@ -51,83 +55,123 @@ namespace Battleship
                 Console.WriteLine(" ");
                 Console.WriteLine("Press any key and lets fire up the boilers and ship off!");
                 Console.ReadLine();
-            }
         }
         static void Game()
         {
-            int remaining = 8;
-            int hits = 0;
-            int misses = 0;
+            var EnemyShip = new Battleship();
+            EnemyShip.SetCoordinates();
+
+            int ShotsLeft = 8;
+            int ShotsMissed = 0;
             int inputX;
             int inputY;
-            int[,] attemptedCoordinates = new int[8, 2];
-            int[,] failedCoordinates = new int[8, 2];
-            int[,] successfulCoordinates = new int[5, 2];
-            int [,] targetShip = CreateEnemyShip();
 
-            while (remaining != 0 || hits < 5)
+
+
+            while (ShotsLeft > 0 || EnemyShip.ReceivedHits < 5)
             {
-                Console.WriteLine("Shots Remaining = {0} | Hits = {1} | Misses = {2}", remaining, hits, misses);
-                Console.WriteLine("");
-
-                GenerateGrid();
-                Console.WriteLine("");
-
-                Console.Write("(X-Axis) - Select a spot [1-10] to fire upon : ");
-
-                if(int.TryParse(Console.ReadLine(), out inputX)){
-                    if( inputX < 11 && inputX > 0)
-                    {
-                        Console.WriteLine("");
-                    }
-                    else
-                    {
-                        InvalidInputMessage();
-                    }
-                }
-
-                Console.Write("(Y-Axis) - Select a spot [1-10] to fire upon : ");
-                if (int.TryParse(Console.ReadLine(), out inputY))
+                try
                 {
-                    if (inputY < 11 && inputY > 0)
-                    {
-                        Console.WriteLine(inputY);
-                    }
-                    else
-                    {
-                        Console.Clear();
-                        Console.WriteLine("that's not a valid entry!");
-                    }
+                    Console.WriteLine("Shots Remaining = {0} | Hits = {1} | Misses = {2}", ShotsLeft, EnemyShip.ReceivedHits, ShotsMissed);
+                    Console.WriteLine("");
 
+                    GenerateGrid();
+                    Console.WriteLine("");
+
+                    inputX = Util.AskInt("(X - Axis) - Select a spot[1 - 10] to fire upon: ");
+                    Console.WriteLine("");
+                    inputY = Util.AskInt("(Y - Axis) - Select a spot[1 - 10] to fire upon: ");
+
+                    Console.Clear();
+                    ShotsLeft--;
                 }
-                //check [inputX, inputY] are valid numbers
-                //if [inputX, inputY] previously tried
-                //go back to selecting values
-                //if [x,y] match piece of ship
-                //hits++
-                //remaining--
-                //push [x,y] to "already tried" variable
-                //reset inputX and inputY to 0
-                //prepare rerender of grid to mark hit
-                // clear console.
-                //rerender console.
-                //if [x,y] does not match piece of ship
-                //misses++
-                //remaining--
-                //push [x,y] to "already tried variable"
-                //reset inputX and inputY to 0
-                //prepare rerender of grid to mark miss
-                //clear console
-                //rerender console
-                remaining--;
+                catch (FormatException)
+                {
+                    Console.Clear();
+                    Console.WriteLine("Incorrect Input ensign! Numbers 1 - 10!!!! Press Enter to Resume!");
+                    Console.ReadLine();
+                    Console.Clear();
+                }
+
             }
 
         }
+
+        class Battleship
+        {
+            public int ReceivedHits = 0;
+            public int[,] Coordinates = new int[5, 2];
+            public void SetCoordinates()
+            {
+                int firstX = GiveMeANumber();
+                int firstY = GiveMeANumber();
+                bool moveX = RandomTrueOrFalse();
+
+                if (moveX == true)
+                {
+                    if (firstX > 5)
+                    {
+                        for (int i = 0; i < 5; i++)
+                        {
+                            Coordinates[i, 0] = firstX - i;
+                            Coordinates[i, 1] = firstY;
+                        }
+                    }
+                    if (firstX < 5)
+                    {
+                        for (int i = 0; i < 5; i++)
+                        {
+                            Coordinates[i, 0] = firstX + i;
+                            Coordinates[i, 1] = firstY;
+                        }
+                    }
+                }
+                else
+                {
+                    if (firstY > 5)
+                    {
+                        for (int i = 0; i < 5; i++)
+                        {
+                            Coordinates[i, 0] = firstX;
+                            Coordinates[i, 1] = firstY - i;
+                        }
+                    }
+                    if (firstY < 5)
+                    {
+                        for (int i = 0; i < 5; i++)
+                        {
+                            Coordinates[i, 0] = firstX;
+                            Coordinates[i, 1] = firstY + i;
+                        }
+                    }
+                }
+            }
+            static public int GiveMeANumber()
+            {
+                int[] validNumbers = new int[] { 1, 2, 3, 4, 6, 7, 8, 9, 10 };
+                Random rnd = new();
+                return validNumbers[rnd.Next(1, validNumbers.Length + 1)];
+
+            }
+            static public bool RandomTrueOrFalse()
+            {
+                Random rnd = new();
+                if (rnd.Next(1, 3) == 1)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
         static void GenerateGrid()
         {
             for (int i = 10; i > 0; i--)
             {
-                if(i == 10)
+                if (i == 10)
                 {
                     Console.WriteLine("{0}  - - - - - - - - - -", i);
                 }
@@ -140,99 +184,8 @@ namespace Battleship
             Console.WriteLine(" ");
             Console.WriteLine("0   1 2 3 4 5 6 7 8 9 10");
         }
-        static void InvalidInputMessage()
-        {
-            Console.Clear();
-            Console.WriteLine("Incorrect Input ensign! Numbers from 1 - 10!!!! Press Enter to resume");
-            Console.ReadLine();
-
-        }
-        static void recursiveReturn(int remaining, int hits, int misses, int inputX, int inputY)
-        {
-            Console.WriteLine("Shots Remaining = {0} | Hits = {1} | Misses = {2}", remaining, hits, misses);
-                Console.WriteLine("");
-
-                GenerateGrid();
-                Console.WriteLine("");
-
-                Console.Write("(X-Axis) - Select a spot [1-10] to fire upon : ");
-        }
-        static int[,] CreateEnemyShip()
-        {
-            int[,] enemyShip = new int[5, 2];
-            int firstX = GiveMeANumber();
-            int firstY = GiveMeANumber();
-            bool moveX = randomTrueOrFalse();
-
-            if(moveX == true)
-            {
-                if(firstX > 5)
-                {
-                    for(int i = 0; i < 5; i++)
-                    {
-                        enemyShip[i, 0] = firstX - i;
-                        enemyShip[i, 1] = firstY;
-                    }
-                }
-                if(firstX < 5)
-                {
-                    for (int i = 0; i < 5; i++)
-                    {
-                        enemyShip[i, 0] = firstX + i;
-                        enemyShip[i, 1] = firstY;
-                    }
-                }
-            }
-            else
-            {
-                if (firstY > 5)
-                {
-                    for (int i = 0; i < 5; i++)
-                    {
-                        enemyShip[i, 0] = firstX;
-                        enemyShip[i, 1] = firstY - i;
-                    }
-                }
-                if (firstY < 5)
-                {
-                    for (int i = 0; i < 5; i++)
-                    {
-                        enemyShip[i, 0] = firstX;
-                        enemyShip[i, 1] = firstY+i;
-                    }
-                }
-            }
-            return enemyShip;
-        }
-        static int GiveMeANumber()
-        {
-            int[] validNumbers = new int[] { 1, 2, 3, 4, 6, 7, 8, 9, 10 };
-            Random rnd = new Random();
-            return validNumbers[rnd.Next(1, validNumbers.Length + 1)];
-
-        }
-        private static bool randomTrueOrFalse()
-        {
-            Random rnd = new Random();
-            if(rnd.Next(1,3) == 1)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
 
 
-       /* private static bool alreadyTried(int x, int y, int shotsLeft, int[,] array)
-        {
-
-        }*/
     }
 
 }
-/*foreach (int i in attemptedCoordinates)
-{
-    System.Console.Write("{0} ", i);
-}*/
