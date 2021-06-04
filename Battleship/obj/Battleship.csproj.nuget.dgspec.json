@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\mvasq\\Source\\Repos\\battleship\\Battleship\\Battleship.csproj": {}
+    "C:\\Users\\mvasq\\source\\repos\\battleship\\Battleship\\Battleship.csproj": {}
   },
   "projects": {
-    "C:\\Users\\mvasq\\Source\\Repos\\battleship\\Battleship\\Battleship.csproj": {
+    "C:\\Users\\mvasq\\source\\repos\\battleship\\Battleship\\Battleship.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\mvasq\\Source\\Repos\\battleship\\Battleship\\Battleship.csproj",
+        "projectUniqueName": "C:\\Users\\mvasq\\source\\repos\\battleship\\Battleship\\Battleship.csproj",
         "projectName": "Battleship",
-        "projectPath": "C:\\Users\\mvasq\\Source\\Repos\\battleship\\Battleship\\Battleship.csproj",
+        "projectPath": "C:\\Users\\mvasq\\source\\repos\\battleship\\Battleship\\Battleship.csproj",
         "packagesPath": "C:\\Users\\mvasq\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\mvasq\\Source\\Repos\\battleship\\Battleship\\obj\\",
+        "outputPath": "C:\\Users\\mvasq\\source\\repos\\battleship\\Battleship\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\mvasq\\AppData\\Roaming\\NuGet\\NuGet.Config",

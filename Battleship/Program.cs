@@ -61,18 +61,23 @@ namespace Battleship
             var EnemyShip = new Battleship();
             EnemyShip.SetCoordinates();
 
-            int ShotsLeft = 8;
+            int ShotsLeft = 10;
             int ShotsMissed = 0;
-            int inputX;
-            int inputY;
-
+            int inputX = 0;
+            int inputY = 0;
 
 
             while (ShotsLeft > 0 || EnemyShip.ReceivedHits < 5)
             {
                 try
                 {
+
                     Console.WriteLine("Shots Remaining = {0} | Hits = {1} | Misses = {2}", ShotsLeft, EnemyShip.ReceivedHits, ShotsMissed);
+                    Console.WriteLine("");
+                    foreach (var i in EnemyShip.Coordinates)
+                    {
+                        Console.Write("{0} ", i);
+                    }
                     Console.WriteLine("");
 
                     GenerateGrid();
@@ -81,9 +86,6 @@ namespace Battleship
                     inputX = Util.AskInt("(X - Axis) - Select a spot[1 - 10] to fire upon: ");
                     Console.WriteLine("");
                     inputY = Util.AskInt("(Y - Axis) - Select a spot[1 - 10] to fire upon: ");
-
-                    Console.Clear();
-                    ShotsLeft--;
                 }
                 catch (FormatException)
                 {
@@ -93,12 +95,15 @@ namespace Battleship
                     Console.Clear();
                 }
 
-                foreach (var i in EnemyShip.Coordinates)
-                {
-                   System.Console.Write("{0} ", i);
-                }
+                //var madeContact = DidMissileHit(inputX, inputY, EnemyShip.Coordinates);
+
+                Console.WriteLine("");
+                Console.WriteLine("{0}", DidMissileHit(inputX, inputY, EnemyShip.Coordinates));
+
                 Console.ReadLine();
                 ShotsLeft--;
+
+
                 //1)how to compare inputs with enemy ship
 
                 //2)how to compare inputs with previous attempts
@@ -129,7 +134,28 @@ namespace Battleship
             }
 
         }
+        /*Console.WriteLine("");
+        foreach (var i in EnemyShip.Coordinates)
+        {
+            Console.Write("{0} ", i);
+        }
+        Console.WriteLine("");
+        for (int i = 0; i < EnemyShip.Coordinates.Length; i++)
+        {
+            Console.WriteLine("{0}", EnemyShip.Coordinates[i, 0]);
+        }*/
+        static public bool DidMissileHit(int x, int y, int[,] array)
+        {
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (array[i, 0] == x && array[i,1] ==y)
+                {
+                    return true;
+                }
+            }
+            return false;
 
+        }
         class Battleship
         {
             public int ReceivedHits = 0;
