@@ -93,6 +93,39 @@ namespace Battleship
                     Console.Clear();
                 }
 
+                foreach (var i in EnemyShip.Coordinates)
+                {
+                   System.Console.Write("{0} ", i);
+                }
+                Console.ReadLine();
+                ShotsLeft--;
+                //1)how to compare inputs with enemy ship
+
+                //2)how to compare inputs with previous attempts
+
+                //if inputs already attempted
+                    //Console.WriteLine("")
+                    //Console.WriteLine("Rookie mistake ensign! Choose a post you haven't already shot at! Press Enter to resume!");
+                    //Console.Readline();
+                    //go back to game, no penalty (NEED TO FIGURE OUT).
+
+                //if inputs don't match enemyship
+                    //Remaining--;
+                    //Misses++;
+                    //Console.WriteLine("");
+                    //Console.WriteLine("Miss!");
+                    //Console.WriteLine("");
+                    //Console.WriteLine("Press Enter to resume!");
+                    //Figure out a way to update the grid (NEED TO DO)
+                    //Console.Readline();
+
+
+                //if inputs do match enemy ship
+                    //Remaining--
+                    //Hits++
+                    //
+
+
             }
 
         }
