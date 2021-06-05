@@ -61,7 +61,10 @@ namespace Battleship
             var EnemyShip = new Battleship();
             EnemyShip.SetCoordinates();
 
+
             int ShotsLeft = 10;
+            int[,]  coordinatesHit= new int[5, 2];
+            int[,]  coordinatesMissed = new int[10, 2];
             int ShotsMissed = 0;
             int inputX = 0;
             int inputY = 0;
@@ -71,10 +74,19 @@ namespace Battleship
             {
                 try
                 {
-
                     Console.WriteLine("Shots Remaining = {0} | Hits = {1} | Misses = {2}", ShotsLeft, EnemyShip.ReceivedHits, ShotsMissed);
                     Console.WriteLine("");
                     foreach (var i in EnemyShip.Coordinates)
+                    {
+                        Console.Write("{0} ", i);
+                    }
+                    Console.WriteLine("");
+                    foreach (var i in coordinatesHit)
+                    {
+                        Console.Write("{0} ", i);
+                    }
+                    Console.WriteLine("");
+                    foreach (var i in coordinatesMissed)
                     {
                         Console.Write("{0} ", i);
                     }
@@ -95,22 +107,20 @@ namespace Battleship
                     Console.Clear();
                 }
 
-                //var madeContact = DidMissileHit(inputX, inputY, EnemyShip.Coordinates);
-
                 Console.WriteLine("");
-                //Console.WriteLine("{0}", DidMissileHit(inputX, inputY, EnemyShip.Coordinates));
-                if(DidMissileHit(inputX, inputY, EnemyShip.Coordinates))
+
+                if (DidMissileHit(inputX, inputY, ShotsMissed, EnemyShip.Coordinates, coordinatesHit, coordinatesMissed))
                 {
                     ShotsLeft--;
                     EnemyShip.ReceivedHits++;
-                    Console.WriteLine("");
                     Console.WriteLine("Hit!");
                     Console.WriteLine("");
                     Console.WriteLine("Press Enter to resume!");
                     //Figure out a way to update the grid (NEED TO DO)
                     Console.ReadLine();
-                    ShotsLeft--;
-
+                    Console.Clear();
+                    inputX = 0;
+                    inputY = 0;
                 }
                 else
                 {
@@ -122,30 +132,45 @@ namespace Battleship
                     Console.WriteLine("Press Enter to resume!");
                     //Figure out a way to update the grid (NEED TO DO)
                     Console.ReadLine();
+                    Console.Clear();
+                    inputX = 0;
+                    inputY = 0;
                 }
-
-                //2)how to compare inputs with previous attempts
-
-                //if inputs already attempted
-                    //Console.WriteLine("")
-                    //Console.WriteLine("Rookie mistake ensign! Choose a post you haven't already shot at! Press Enter to resume!");
-                    //Console.Readline();
-                    //go back to game, no penalty (NEED TO FIGURE OUT).
-
-
-
             }
 
         }
-        static public bool DidMissileHit(int x, int y, int[,] array)
+        static public bool DidMissileHit(int x, int y, int shotsMissed, int[,] enemyArray, int[,] hitArray, int[,] missedArray)
         {
-            for (int i = 0; i < array.GetLength(0); ++i)
+            for (int i = 0; i < enemyArray.GetLength(0); ++i)
             {
-                if(array[i,0] == x && array[i,1] == y)
+                if(enemyArray[i,0] == x && enemyArray[i,1] == y)
+                {
+                    hitArray[i, 0] = enemyArray[i, 0];
+                    hitArray[i, 1] = enemyArray[i, 1];
+                    return true;
+                }
+            }
+            missedArray[shotsMissed, 0] = x;
+            missedArray[shotsMissed, 1] = y;
+            return false;
+        }
+        static public bool AlreadyAttempted(int x, int y, int[,] hitArray, int[,] missedArray)
+        {
+            for (int i = 0; i < hitArray.GetLength(0); ++i)
+            {
+                if (hitArray[i, 0] == x && hitArray[i, 1] == y)
                 {
                     return true;
                 }
             }
+            for (int i = 0; i < missedArray.GetLength(0); ++i)
+            {
+                if (missedArray[i, 0] == x && missedArray[i, 1] == y)
+                {
+                    return true;
+                }
+            }
+
             return false;
         }
         class Battleship
