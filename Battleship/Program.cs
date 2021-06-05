@@ -98,13 +98,31 @@ namespace Battleship
                 //var madeContact = DidMissileHit(inputX, inputY, EnemyShip.Coordinates);
 
                 Console.WriteLine("");
-                Console.WriteLine("{0}", DidMissileHit(inputX, inputY, EnemyShip.Coordinates));
+                //Console.WriteLine("{0}", DidMissileHit(inputX, inputY, EnemyShip.Coordinates));
+                if(DidMissileHit(inputX, inputY, EnemyShip.Coordinates))
+                {
+                    ShotsLeft--;
+                    EnemyShip.ReceivedHits++;
+                    Console.WriteLine("");
+                    Console.WriteLine("Hit!");
+                    Console.WriteLine("");
+                    Console.WriteLine("Press Enter to resume!");
+                    //Figure out a way to update the grid (NEED TO DO)
+                    Console.ReadLine();
+                    ShotsLeft--;
 
-                Console.ReadLine();
-                ShotsLeft--;
-
-
-                //1)how to compare inputs with enemy ship
+                }
+                else
+                {
+                    ShotsLeft--;
+                    ShotsMissed++;
+                    Console.WriteLine("");
+                    Console.WriteLine("Miss!");
+                    Console.WriteLine("");
+                    Console.WriteLine("Press Enter to resume!");
+                    //Figure out a way to update the grid (NEED TO DO)
+                    Console.ReadLine();
+                }
 
                 //2)how to compare inputs with previous attempts
 
@@ -114,47 +132,21 @@ namespace Battleship
                     //Console.Readline();
                     //go back to game, no penalty (NEED TO FIGURE OUT).
 
-                //if inputs don't match enemyship
-                    //Remaining--;
-                    //Misses++;
-                    //Console.WriteLine("");
-                    //Console.WriteLine("Miss!");
-                    //Console.WriteLine("");
-                    //Console.WriteLine("Press Enter to resume!");
-                    //Figure out a way to update the grid (NEED TO DO)
-                    //Console.Readline();
-
-
-                //if inputs do match enemy ship
-                    //Remaining--
-                    //Hits++
-                    //
 
 
             }
 
         }
-        /*Console.WriteLine("");
-        foreach (var i in EnemyShip.Coordinates)
-        {
-            Console.Write("{0} ", i);
-        }
-        Console.WriteLine("");
-        for (int i = 0; i < EnemyShip.Coordinates.Length; i++)
-        {
-            Console.WriteLine("{0}", EnemyShip.Coordinates[i, 0]);
-        }*/
         static public bool DidMissileHit(int x, int y, int[,] array)
         {
-            for (int i = 0; i < array.Length; i++)
+            for (int i = 0; i < array.GetLength(0); ++i)
             {
-                if (array[i, 0] == x && array[i,1] ==y)
+                if(array[i,0] == x && array[i,1] == y)
                 {
                     return true;
                 }
             }
             return false;
-
         }
         class Battleship
         {
