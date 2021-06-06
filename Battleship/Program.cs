@@ -60,8 +60,6 @@ namespace Battleship
         {
             var EnemyShip = new Battleship();
             EnemyShip.SetCoordinates();
-
-
             int ShotsLeft = 10;
             int[,]  coordinatesHit= new int[5, 2];
             int[,]  coordinatesMissed = new int[10, 2];
@@ -69,13 +67,14 @@ namespace Battleship
             int inputX = 0;
             int inputY = 0;
 
-
             while (ShotsLeft > 0 || EnemyShip.ReceivedHits < 5)
             {
                 try
                 {
                     Console.WriteLine("Shots Remaining = {0} | Hits = {1} | Misses = {2}", ShotsLeft, EnemyShip.ReceivedHits, ShotsMissed);
                     Console.WriteLine("");
+
+                    //REMOVE LATER
                     foreach (var i in EnemyShip.Coordinates)
                     {
                         Console.Write("{0} ", i);
@@ -91,6 +90,7 @@ namespace Battleship
                         Console.Write("{0} ", i);
                     }
                     Console.WriteLine("");
+                    //=============================================
 
                     GenerateGrid();
                     Console.WriteLine("");
@@ -98,6 +98,7 @@ namespace Battleship
                     inputX = Util.AskInt("(X - Axis) - Select a spot[1 - 10] to fire upon: ");
                     Console.WriteLine("");
                     inputY = Util.AskInt("(Y - Axis) - Select a spot[1 - 10] to fire upon: ");
+                    AlreadyAttempted(inputX, inputY, coordinatesHit, coordinatesMissed);
                 }
                 catch (FormatException)
                 {
@@ -105,20 +106,34 @@ namespace Battleship
                     Console.WriteLine("Incorrect Input ensign! Numbers 1 - 10!!!! Press Enter to Resume!");
                     Console.ReadLine();
                     Console.Clear();
+                    continue;
                 }
 
                 Console.WriteLine("");
+
+                if(inputX > 10 || inputX < 1 || inputY > 10 || inputY < 1)
+                {
+                    Console.Clear();
+                    Console.WriteLine("Incorrect Input ensign! Numbers 1 - 10!!!! Press Enter to Resume!");
+                    Console.ReadLine();
+                    Console.Clear();
+                    continue;
+                }
+
+                if (AlreadyAttempted(inputX, inputY, coordinatesHit, coordinatesMissed))
+                {
+                    Console.WriteLine("Rookie mistake ensign! Choose a spot you haven't already shot at! Press Enter to resume!");
+                    Console.ReadLine();
+                    Console.Clear();
+                    continue;
+                }
 
                 if (DidMissileHit(inputX, inputY, ShotsMissed, EnemyShip.Coordinates, coordinatesHit, coordinatesMissed))
                 {
                     ShotsLeft--;
                     EnemyShip.ReceivedHits++;
                     Console.WriteLine("Hit!");
-                    Console.WriteLine("");
-                    Console.WriteLine("Press Enter to resume!");
                     //Figure out a way to update the grid (NEED TO DO)
-                    Console.ReadLine();
-                    Console.Clear();
                     inputX = 0;
                     inputY = 0;
                 }
@@ -128,14 +143,14 @@ namespace Battleship
                     ShotsMissed++;
                     Console.WriteLine("");
                     Console.WriteLine("Miss!");
-                    Console.WriteLine("");
-                    Console.WriteLine("Press Enter to resume!");
                     //Figure out a way to update the grid (NEED TO DO)
-                    Console.ReadLine();
-                    Console.Clear();
                     inputX = 0;
                     inputY = 0;
                 }
+                Console.WriteLine("");
+                Console.WriteLine("Press Enter to resume!");
+                Console.ReadLine();
+                Console.Clear();
             }
 
         }
@@ -167,7 +182,7 @@ namespace Battleship
             {
                 if (missedArray[i, 0] == x && missedArray[i, 1] == y)
                 {
-                    return true;
+                    return true;                    
                 }
             }
 

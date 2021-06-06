@@ -14,5 +14,7 @@ namespace Battleship
             return int.Parse(System.Console.ReadLine());
 
         }
+
     }
+
 }
