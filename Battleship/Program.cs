@@ -42,7 +42,22 @@ namespace Battleship
                 Console.WriteLine("");
                 Console.WriteLine("The Game is simple, you will be prompted to select a point ona  10 x 10 grid.");
                 Console.WriteLine("The point is made up of X-value and a Y-value that represent on square of the grid ... Please see below");
-                GenerateGrid();
+                //Generate Grid
+                for (int i = 10; i > 0; i--)
+                {
+                    if (i == 10)
+                    {
+                        Console.WriteLine("{0}  - - - - - - - - - -", i);
+                    }
+                    else
+                    {
+                        Console.WriteLine("{0}   - - - - - - - - - -", i);
+                    }
+
+                }
+                Console.WriteLine(" ");
+                Console.WriteLine("0   1 2 3 4 5 6 7 8 9 10");
+                //=====================================================
                 Console.WriteLine("Once the point is selected you will be prompted with a hit or miss.");
                 Console.WriteLine("You will be given a total of 8 guesses. If you do not destroy the nemy vessel...");
                 Console.WriteLine("You are probably a fit for the 1588 spanish armada and lose the game.");
@@ -62,7 +77,7 @@ namespace Battleship
             EnemyShip.SetCoordinates();
             int ShotsLeft = 10;
             int[,]  coordinatesHit= new int[5, 2];
-            int[,]  coordinatesMissed = new int[10, 2];
+            int[,]  coordinatesMissed = new int[10, 10];
             int ShotsMissed = 0;
             int inputX = 0;
             int inputY = 0;
@@ -92,7 +107,7 @@ namespace Battleship
                     Console.WriteLine("");
                     //=============================================
 
-                    GenerateGrid();
+                    //GenerateGrid();
                     Console.WriteLine("");
 
                     inputX = Util.AskInt("(X - Axis) - Select a spot[1 - 10] to fire upon: ");
@@ -258,7 +273,7 @@ namespace Battleship
             }
         }
 
-        static void GenerateGrid()
+        static void RealGrid(int[,] hits, int[,] misses)
         {
             for (int i = 10; i > 0; i--)
             {
@@ -270,13 +285,11 @@ namespace Battleship
                 {
                     Console.WriteLine("{0}   - - - - - - - - - -", i);
                 }
-
             }
             Console.WriteLine(" ");
             Console.WriteLine("0   1 2 3 4 5 6 7 8 9 10");
         }
 
-
-    }
+}
 
 }
