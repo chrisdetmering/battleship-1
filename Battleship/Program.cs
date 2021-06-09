@@ -106,6 +106,7 @@ namespace Battleship
                         Console.Write("{0} ", i);
                     }
                     Console.WriteLine("");
+                    DisplayGrid(coordinatesGrid);
                     //=============================================
 
                     Console.WriteLine("");
@@ -288,14 +289,27 @@ namespace Battleship
             return newGrid;
 
         }
-        static void DisplayGrid(string[,]grid)
+        static void DisplayGrid(string [,] grid)
         {
             for (int a = grid.GetLength(0); a > 0; a--)
             {
-                Console.WriteLine("{0}  {1}", a, grid[a, 0]);
+                if (a == 10)
+                {
+                    Console.Write("{0}", a);
+                }
+                else
+                {
+                    Console.Write("{0} ", a);
+                }
+                {
+                for (int b = 0; b < 10; b++)
+                {
+                    Console.Write("{0}", grid[a - 1, b]);
+                }
+                }
+                Console.WriteLine("");
             }
-
-            Console.WriteLine("0 1 2 3 4 5 6 7 8 9 10");
+            Console.WriteLine("0  1  2  3  4  5  6  7  8  9  10");
         }
 
 }
