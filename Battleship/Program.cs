@@ -76,8 +76,9 @@ namespace Battleship
             var EnemyShip = new Battleship();
             EnemyShip.SetCoordinates();
             int ShotsLeft = 10;
-            int[,]  coordinatesHit= new int[5, 2];
-            int[,]  coordinatesMissed = new int[10, 10];
+            int[,] coordinatesHit = new int[5, 2];
+            int[,] coordinatesMissed = new int[10, 2];
+            string[,] coordinatesGrid = BaseGrid();
             int ShotsMissed = 0;
             int inputX = 0;
             int inputY = 0;
@@ -107,7 +108,6 @@ namespace Battleship
                     Console.WriteLine("");
                     //=============================================
 
-                    //GenerateGrid();
                     Console.WriteLine("");
 
                     inputX = Util.AskInt("(X - Axis) - Select a spot[1 - 10] to fire upon: ");
@@ -273,21 +273,29 @@ namespace Battleship
             }
         }
 
-        static void RealGrid(int[,] hits, int[,] misses)
+        static string [,] BaseGrid()
         {
-            for (int i = 10; i > 0; i--)
+            string[,] newGrid = new string[10, 10];
+
+            for (int i = 0; i < 10; i++)
             {
-                if (i == 10)
+                for (int j = 0; j < 10; j++)
                 {
-                    Console.WriteLine("{0}  - - - - - - - - - -", i);
-                }
-                else
-                {
-                    Console.WriteLine("{0}   - - - - - - - - - -", i);
+                    newGrid[i, j] = " - ";
                 }
             }
-            Console.WriteLine(" ");
-            Console.WriteLine("0   1 2 3 4 5 6 7 8 9 10");
+
+            return newGrid;
+
+        }
+        static void DisplayGrid(string[,]grid)
+        {
+            for (int a = grid.GetLength(0); a > 0; a--)
+            {
+                Console.WriteLine("{0}  {1}", a, grid[a, 0]);
+            }
+
+            Console.WriteLine("0 1 2 3 4 5 6 7 8 9 10");
         }
 
 }
