@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "eKiY+YCrLbR+NhQ64QRsdxgszUu+nNLIDrVqirUhnYvXYz+e8x/PYGcQ9dpl/ILSEF1S+e9aNT8ooVAVWT9VBw==",
+  "dgSpecHash": "9rsn3sT6ikwtRPWJoi0LqQ5Xq6ZlgC8HWdpo2bJwPC6UtpNE/UMfnetmrs2jvc2dWNwSRhJYGa1EYy+i3Ip1Jw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\mvasq\\source\\repos\\Battleship\\Battleship\\Battleship.csproj",
+  "projectFilePath": "C:\\Users\\mvasq\\source\\repos\\battleship\\Battleship\\Battleship.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

@@ -6,7 +6,7 @@ namespace Battleship
     {
         static void Main(string[] args)
         {
-            //Intro();
+            Intro();
             Game();
         }
         static void Intro()
@@ -83,31 +83,15 @@ namespace Battleship
             int inputX = 0;
             int inputY = 0;
 
-            while (ShotsLeft > 0 || EnemyShip.ReceivedHits < 5)
+            while (ShotsLeft != 0)
             {
                 try
                 {
                     Console.WriteLine("Shots Remaining = {0} | Hits = {1} | Misses = {2}", ShotsLeft, EnemyShip.ReceivedHits, ShotsMissed);
+                    
                     Console.WriteLine("");
 
-                    //REMOVE LATER
-                    foreach (var i in EnemyShip.Coordinates)
-                    {
-                        Console.Write("{0} ", i);
-                    }
-                    Console.WriteLine("");
-                    foreach (var i in coordinatesHit)
-                    {
-                        Console.Write("{0} ", i);
-                    }
-                    Console.WriteLine("");
-                    foreach (var i in coordinatesMissed)
-                    {
-                        Console.Write("{0} ", i);
-                    }
-                    Console.WriteLine("");
                     DisplayGrid(coordinatesGrid);
-                    //=============================================
 
                     Console.WriteLine("");
 
@@ -148,10 +132,22 @@ namespace Battleship
                 {
                     ShotsLeft--;
                     EnemyShip.ReceivedHits++;
+                    if(EnemyShip.ReceivedHits == 5)
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Congratulations! You've won!");
+                        break;
+                    }
                     Console.WriteLine("Hit!");
-                    //Figure out a way to update the grid (NEED TO DO)
+                    coordinatesGrid[inputY - 1, inputX - 1] = " X ";
                     inputX = 0;
                     inputY = 0;
+                }                
+                if(ShotsLeft - 1 == 0)
+                {
+                    Console.Clear();
+                    Console.WriteLine("Game Over!");
+                    break;
                 }
                 else
                 {
@@ -159,7 +155,7 @@ namespace Battleship
                     ShotsMissed++;
                     Console.WriteLine("");
                     Console.WriteLine("Miss!");
-                    //Figure out a way to update the grid (NEED TO DO)
+                    coordinatesGrid[inputY - 1, inputX - 1] = " O ";
                     inputX = 0;
                     inputY = 0;
                 }
@@ -168,7 +164,6 @@ namespace Battleship
                 Console.ReadLine();
                 Console.Clear();
             }
-
         }
         static public bool DidMissileHit(int x, int y, int shotsMissed, int[,] enemyArray, int[,] hitArray, int[,] missedArray)
         {
@@ -311,7 +306,6 @@ namespace Battleship
             }
             Console.WriteLine("0  1  2  3  4  5  6  7  8  9  10");
         }
-
 }
 
 }
