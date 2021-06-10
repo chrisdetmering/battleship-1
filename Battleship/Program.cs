@@ -21,6 +21,8 @@ namespace Battleship
                 if (wantToPlay == "n")
                 {
                     Console.WriteLine("Then why are you here?");
+                    Console.ReadLine();
+                    Console.Clear();
                 }
             }
 
@@ -31,6 +33,12 @@ namespace Battleship
             {
                 ShowTutorial();                
             }
+            if(wantTutorial == "n")
+            {
+                Console.WriteLine("");
+                Console.WriteLine("You think you got what it takes, huh? Press any key and find out.");
+                Console.ReadLine();
+            }
             Console.Clear();
         }
         static void ShowTutorial(){
@@ -40,9 +48,9 @@ namespace Battleship
                     Console.Write("*");
                 }
                 Console.WriteLine("");
-                Console.WriteLine("The Game is simple, you will be prompted to select a point ona  10 x 10 grid.");
+                Console.WriteLine("The game is simple, you will be prompted to select a point on a 10 x 10 grid.");
                 Console.WriteLine("The point is made up of X-value and a Y-value that represent on square of the grid ... Please see below");
-                //Generate Grid
+                Console.WriteLine("");
                 for (int i = 10; i > 0; i--)
                 {
                     if (i == 10)
@@ -57,9 +65,8 @@ namespace Battleship
                 }
                 Console.WriteLine(" ");
                 Console.WriteLine("0   1 2 3 4 5 6 7 8 9 10");
-                //=====================================================
                 Console.WriteLine("Once the point is selected you will be prompted with a hit or miss.");
-                Console.WriteLine("You will be given a total of 8 guesses. If you do not destroy the nemy vessel...");
+                Console.WriteLine("You will be given a total of 10 guesses. If you do not destroy the nemy vessel...");
                 Console.WriteLine("You are probably a fit for the 1588 spanish armada and lose the game.");
                 Console.WriteLine("However if you annihalate the enemy which takes up 5 grid spaces you win!");
                 Console.WriteLine("After which you can gloat to your friends and family and garner the respect of your peers");
@@ -86,7 +93,7 @@ namespace Battleship
             while (ShotsLeft != 0)
             {
                 try
-                {
+                {             
                     Console.WriteLine("Shots Remaining = {0} | Hits = {1} | Misses = {2}", ShotsLeft, EnemyShip.ReceivedHits, ShotsMissed);
                     
                     Console.WriteLine("");
@@ -136,18 +143,12 @@ namespace Battleship
                     {
                         Console.Clear();
                         Console.WriteLine("Congratulations! You've won!");
+                        Console.ReadLine();
+                        Console.Clear();
                         break;
                     }
                     Console.WriteLine("Hit!");
                     coordinatesGrid[inputY - 1, inputX - 1] = " X ";
-                    inputX = 0;
-                    inputY = 0;
-                }                
-                if(ShotsLeft - 1 == 0)
-                {
-                    Console.Clear();
-                    Console.WriteLine("Game Over!");
-                    break;
                 }
                 else
                 {
@@ -156,11 +157,20 @@ namespace Battleship
                     Console.WriteLine("");
                     Console.WriteLine("Miss!");
                     coordinatesGrid[inputY - 1, inputX - 1] = " O ";
-                    inputX = 0;
-                    inputY = 0;
                 }
+                if (ShotsLeft - 1 == 0)
+                {
+                    Console.Clear();
+                    Console.WriteLine("Game Over!");
+                    Console.ReadLine();
+                    Console.Clear();
+                    break;
+                }
+
                 Console.WriteLine("");
                 Console.WriteLine("Press Enter to resume!");
+                inputX = 0;
+                inputY = 0;
                 Console.ReadLine();
                 Console.Clear();
             }
@@ -252,7 +262,7 @@ namespace Battleship
             {
                 int[] validNumbers = new int[] { 1, 2, 3, 4, 6, 7, 8, 9, 10 };
                 Random rnd = new();
-                return validNumbers[rnd.Next(1, validNumbers.Length + 1)];
+                return validNumbers[rnd.Next(1, validNumbers.Length)];
 
             }
             static public bool RandomTrueOrFalse()
