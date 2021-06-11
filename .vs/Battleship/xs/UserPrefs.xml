@@ -1,11 +1,19 @@
 ﻿<Properties StartupConfiguration="{A87272FD-47C5-470F-8499-599603AFC721}|Default">
   <MonoDevelop.Ide.ItemProperties.Battleship PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench ActiveDocument="Battleship/Program.cs">
+    <Files>
+      <File FileName="Battleship/Display.cs" Line="17" Column="31" IsPinned="True" />
+      <File FileName="Battleship/Program.cs" Line="12" Column="1" />
+      <File FileName="Battleship/Game.cs" Line="73" Column="39" />
+      <File FileName="Battleship/BattleShip.cs" Line="14" Column="1" />
+    </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="Battleship" expanded="True">
-            <Node name="Battleship" selected="True" />
+            <Node name="Battleship" expanded="True">
+              <Node name="Program.cs" selected="True" />
+            </Node>
           </Node>
         </State>
       </Pad>
