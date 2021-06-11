@@ -1,27 +1,26 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\mvasq\\source\\repos\\battleship\\Battleship\\Battleship.csproj": {}
+    "/Users/chris/Desktop/battleship-1/Battleship/Battleship.csproj": {}
   },
   "projects": {
-    "C:\\Users\\mvasq\\source\\repos\\battleship\\Battleship\\Battleship.csproj": {
+    "/Users/chris/Desktop/battleship-1/Battleship/Battleship.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\mvasq\\source\\repos\\battleship\\Battleship\\Battleship.csproj",
+        "projectUniqueName": "/Users/chris/Desktop/battleship-1/Battleship/Battleship.csproj",
         "projectName": "Battleship",
-        "projectPath": "C:\\Users\\mvasq\\source\\repos\\battleship\\Battleship\\Battleship.csproj",
-        "packagesPath": "C:\\Users\\mvasq\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\mvasq\\source\\repos\\battleship\\Battleship\\obj\\",
+        "projectPath": "/Users/chris/Desktop/battleship-1/Battleship/Battleship.csproj",
+        "packagesPath": "/Users/chris/.nuget/packages/",
+        "outputPath": "/Users/chris/Desktop/battleship-1/Battleship/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\mvasq\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/Users/chris/.config/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {}
+          "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net5.0": {
@@ -53,7 +52,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.300\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/6.0.100-preview.3.21202.5/RuntimeIdentifierGraph.json"
         }
       }
     }
